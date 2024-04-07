@@ -25,6 +25,9 @@ class PasswordResponse(BaseModel):
     password: str
     length: int
 
+# Maintain a set to store generated passwords
+generated_passwords = set()
+
 def generate_password(request: PasswordRequest) -> str:
     logger.info(f"Generating password with parameters: {request}")
     allowed_characters = ""
@@ -42,10 +45,25 @@ def generate_password(request: PasswordRequest) -> str:
     if not any([request.uppercase, request.lowercase, request.numbers, request.special_characters]):
         raise HTTPException(status_code=400, detail="At least one character type should be included")
 
-    # Generate password
-    password = ''.join(secrets.choice(allowed_characters) for _ in range(request.length))
+    # Password policies: Minimum length and maximum length
+    if request.length < 12:
+        raise HTTPException(status_code=400, detail="Minimum password length should be 12 characters")
+    if request.length > 64:
+        raise HTTPException(status_code=400, detail="Maximum password length should be 64 characters")
 
-    return password
+    while True:
+        # Generate password
+        password = ''.join(secrets.choice(allowed_characters) for _ in range(request.length))
+        
+        # Deduplication: Check if password is unique
+        if password not in generated_passwords:
+            generated_passwords.add(password)
+            return password
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # Handle duplication by checking if the generated password
+        # is already in the set of generated passwords. If it's not,
+        # add it to the set and return the password. If it's a duplicate,
+        # regenerate a new password until a unique one is found.
 
 @app.post("/generate-password/", response_model=PasswordResponse, summary="Generate a secure password")
 async def generate_password_route(request: PasswordRequest):
