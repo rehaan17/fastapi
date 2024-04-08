@@ -25,8 +25,8 @@ To start using the Password Generator API, follow the installation instructions 
 1. Clone the repository:
 
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone <https://github.com/rehaan17/fastapi.git>
+    cd <fastapi>
     ```
 
 2. Install dependencies:
