@@ -1,6 +1,6 @@
 # Password Generator & COVID-19 Statistics API
 
-Welcome to the Password Generator & COVID-19 Statistics API! This API provides two main functionalities: password generation and access to COVID-19 statistics for various countries. With these features, users can generate secure passwords and stay informed about the latest COVID-19 data worldwide.
+Welcome to the Password Generator & COVID-19 Statistics API! This API provides two main functionalities: password generation and access to COVID-19 statistics for various countries. With these features, users can generate secure passwords and stay informed about the  COVID-19 data worldwide.
 
 ## Password Generator API
 
