@@ -29,6 +29,15 @@ class PasswordResponse(BaseModel):
 generated_passwords = set()
 
 def generate_password(request: PasswordRequest) -> str:
+    """
+    Generate a secure password based on the specified criteria.
+
+    Parameters:
+    - request (PasswordRequest): Object containing password generation parameters.
+
+    Returns:
+    - str: Generated password.
+    """
     logger.info(f"Generating password with parameters: {request}")
     allowed_characters = ""
 
@@ -67,6 +76,15 @@ def generate_password(request: PasswordRequest) -> str:
 
 @app.post("/generate-password/", response_model=PasswordResponse, summary="Generate a secure password")
 async def generate_password_route(request: PasswordRequest):
+    """
+    Endpoint to generate a secure password based on the specified criteria.
+
+    Parameters:
+    - request (PasswordRequest): Object containing password generation parameters.
+
+    Returns:
+    - PasswordResponse: Object containing the generated password and its length.
+    """
     try:
         length = request.length
         generated_password = generate_password(request)
@@ -82,12 +100,24 @@ async def generate_password_route(request: PasswordRequest):
 # Compulsory: Provide basic documentation for the root URL
 @app.get("/", summary="Root endpoint", description="Welcome to the Password Generator API. Use /generate-password/ to generate a password.")
 async def root():
+    """
+    Root endpoint providing a welcome message and instructions to generate a password.
+
+    Returns:
+    - dict: Welcome message.
+    """
     logger.info("Root endpoint accessed")
     return {"message": "Welcome to the Password Generator API. Use /generate-password/ to generate a password."}
 
 # Compulsory: Provide error handling for invalid routes
 @app.exception_handler(404)
 async def not_found(request, exc):
+    """
+    Handler for invalid endpoints.
+
+    Returns:
+    - dict: Error message for invalid endpoint.
+    """
     logger.error("Invalid endpoint accessed")
     return {"message": "Endpoint not found"}, 404
 
