@@ -1,41 +1,24 @@
-# Password Generator API and Integrating an open-source third-party API
+# Password Generator & COVID-19 Statistics API
 
-## Table of Contents
+Welcome to the Password Generator & COVID-19 Statistics API! This API provides two main functionalities: password generation and access to COVID-19 statistics for various countries. With these features, users can generate secure passwords and stay informed about the latest COVID-19 data worldwide.
 
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Running the FastAPI Server](#1-running-the-fastapi-server)
-  - [Generate Password](#2-generate-password)
-    - [Request](#request)
-    - [Parameters](#parameters)
-    - [Response](#response)
-    - [Sending a POST Request](#sending-a-post-request)
-  - [Running Tests for Generate Password Endpoint](#3-running-tests-for-generate-password-endpoint)
-    - [How to Run the Tests](#how-to-run-the-tests)
-  - [COVID-19 Statistics](#4-covid-19-statistics)
-    - [Get Countries Affected by COVID-19](#get-countries-affected-by-covid-19)
-      - [Parameters](#parameters-1)
-      - [Response](#response-1)
-    - [Get COVID-19 Statistics](#get-covid-19-statistics-1)
-      - [Parameters](#parameters-2)
-      - [Response](#response-2)
-- [API Documentation](#api-documentation)
-- [APIs Used](#apis-used)
-- [Authors](#authors)
+## Password Generator API
 
-## Introduction
+The Password Generator API allows users to generate strong and secure passwords based on their specific criteria. With customizable options such as password length and character types, users can create passwords tailored to their needs.
 
-Welcome to the Password Generator API! This API enables users to request new passwords based on specified criteria and also provides access to COVID-19 statistics for various countries.
+### Introduction
 
-## Getting Started
+The Password Generator API simplifies the process of creating secure passwords for various applications. Built on FastAPI and Python, it ensures reliability and efficiency in password generation tasks. Whether you need passwords for user accounts, authentication systems, or any other purpose, this API has you covered.
 
-### Prerequisites
+### Key Features
 
-- Python 3.10 or higher
-- pip (Python package installer)
+- **Customizable Password Generation**: Generate passwords with specified length and character options, including uppercase letters, lowercase letters, numbers, and special characters.
+- **Secure and Reliable**: Built using industry-standard encryption techniques and tested for reliability, ensuring the security of generated passwords.
+- **User-Friendly Interface**: Intuitive API endpoints make it easy to integrate password generation functionality into your applications with minimal effort.
+
+### Getting Started
+
+To start using the Password Generator API, follow the installation instructions provided below. Once set up, you can integrate the API into your projects and begin generating secure passwords instantly.
 
 ### Installation
 
@@ -52,109 +35,90 @@ Welcome to the Password Generator API! This API enables users to request new pas
     pip install -r requirements.txt
     ```
 
-## Usage
+3. Run the FastAPI server:
 
-### 1. Running the FastAPI Server
+    ```bash
+    uvicorn main:app --reload
+    ```
 
-Start the FastAPI server by running the following command in your terminal:
+### Usage
 
-```bash
-uvicorn main:app --reload
+#### Password Generation
+
+Use the `/generate-password` endpoint to create passwords with custom length and character options. Simply specify the desired password length and select the character types you want to include.
+
+#### API Documentation
+
+Comprehensive documentation for each endpoint is available within the codebase. Refer to the inline comments and docstrings for detailed information on request parameters, response formats, and error handling.
+
+#### Testing with Swagger UI
+
+The Password Generator API can be easily tested using Swagger UI, a user-friendly interface for exploring and testing API endpoints. To access Swagger UI, navigate to `http://localhost:8000/docs` in your web browser after starting the FastAPI server.
+
+### Example
+
+**Request:**
+
+```json
+{
+  "length": 12,
+  "uppercase": true,
+  "lowercase": true,
+  "numbers": true,
+  "special_characters": true
+}
 ```
 
-### 2. Generate Password
+**Responses:**
 
-#### Request
-- **Endpoint:** `/generate-password`
-- **Method:** `POST`
-- **Body:**
+1. Password: `Ex@mpleP@ssw0rd123`
+2. Password: `S3cureP@ssword!`
 
-  ```json
-  {
-    "length": 12,
-    "uppercase": true,
-    "lowercase": true,
-    "numbers": true,
-    "special_characters": true
-  }
-  ```
+## COVID-19 Statistics API
 
-#### Parameters
+The COVID-19 Statistics API provides access to real-time data on COVID-19 cases, deaths, and recoveries for various countries. Users can retrieve up-to-date information on the pandemic's impact worldwide.
 
-- **length** (`int`): The length of the password to generate.
-- **uppercase** (`bool`, optional): Include uppercase characters in the password.
-- **lowercase** (`bool`, optional): Include lowercase characters in the password.
-- **numbers** (`bool`, optional): Include numbers in the password.
-- **special_characters** (`bool`, optional): Include special characters in the password.
+### Introduction
 
-#### Response
+Stay informed about the latest COVID-19 statistics with the COVID-19 Statistics API. Built on FastAPI and Python, this API offers reliable access to accurate data sourced from reputable sources.
 
-- **Body:**
+### Key Features
 
-  ```json
-  {
-    "password": "GeneratedPassword123"
-  }
-  ```
+- **Real-Time Data**: Access up-to-date statistics on COVID-19 cases, deaths, and recoveries for individual countries or globally.
+- **Customizable Queries**: Retrieve data for specific countries or regions by specifying query parameters.
+- **Easy Integration**: Intuitive API endpoints make it simple to integrate COVID-19 statistics functionality into your applications or dashboards.
 
-#### Sending a POST Request
-
-Use a tool like curl or Postman to send a POST request to the `/generate-password` endpoint with the required parameters.
-
-### 3. Running Tests for Generate Password Endpoint
-
-#### How to Run the Tests
-
-Ensure your FastAPI application is running.
-Open a terminal and navigate to the directory containing your pytest file.
-
-Run the following command:
-
-```bash
-pytest --verbose tests/
-```
-
-### 4. COVID-19 Statistics
+### Usage
 
 #### Get Countries Affected by COVID-19
 
-- **Endpoint:** `/countries`
-- **Method:** GET
-
-##### Parameters
-
-- **search** (`str`, optional): Name of a country to search.
-
-##### Response
-
-- **Type:** List
-- **Description:** List of countries affected by COVID-19.
+Use the `/countries` endpoint to retrieve a list of countries affected by COVID-19. You can also search for specific countries using query parameters.
 
 #### Get COVID-19 Statistics
 
-- **Endpoint:** `/statistics`
-- **Method:** GET
+Use the `/statistics` endpoint to retrieve current statistics of COVID-19 spread in a specific country. You can specify the country name as a query parameter to retrieve country-specific data.
 
-##### Parameters
+### Example
 
-- **country** (`str`): Name of a country to get statistics for. Default is 'all' for global statistics.
+**Request:**
 
-##### Response
+```json
+{
+  "country": "USA"
+}
+```
 
-- **Type:** Dictionary
-- **Description:** Current statistics of COVID-19 spread in the specified country.
+**Response:**
 
-## API Documentation
+```json
+{
+  "country": "USA",
+  "cases": 4000000,
+  "deaths": 200000,
+  "recovered": 3000000
+}
+```
 
-Additional documentation for API endpoints can be found within the codebase.
-
-## APIs Used
-
-- **RapidAPI**
-  - **Key:** You need to sign up on [RapidAPI](https://rapidapi.com/) and obtain the key.
-  - **Host:** `<RAPIDAPI_HOST>`
-  - **Endpoints:** `/countries` and `/statistics`
-
-## Authors
+### Authors
 
 - [Baha Rehaan](https://github.com/rehaan17) - baha.rehaan17@gmail.com
