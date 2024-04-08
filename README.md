@@ -1,6 +1,6 @@
 # Password Generator & COVID-19 Statistics API
 
-Welcome to the Password Generator & COVID-19 Statistics API! This API provides two main functionalities: password generation and access to COVID-19 statistics for various countries. With these features, users can generate secure passwords and stay informed about the  COVID-19 data worldwide.
+Welcome to the Password Generator & COVID-19 Statistics API! This API provides two main functionalities: password generation and access to COVID-19 statistics for various countries. With these features, users can generate secure passwords and stay informed about the COVID-19 data worldwide.
 
 ## Password Generator API
 
@@ -134,6 +134,65 @@ Use the `/countries` endpoint to retrieve a list of countries affected by COVID-
 #### Get COVID-19 Statistics
 
 Use the `/statistics` endpoint to retrieve current statistics of COVID-19 spread in a specific country. You can specify the country name as a query parameter to retrieve country-specific data.
+
+### Examples
+
+#### Positive Example (Valid Request)
+
+**Request:**
+
+```json
+{
+  "country": "USA"
+}
+```
+
+**Response:**
+
+```json
+{
+  "continent": "North America",
+  "country": "USA",
+  "population": 331449281,
+  "cases": {
+    "new": "+90,855",
+    "active": 22312210,
+    "critical": 21361,
+    "recovered": 45886907,
+    "1M_pop": "135,858",
+    "total": 45025452
+  },
+  "deaths": {
+    "new": "+2,432",
+    "1M_pop": "1,927",
+    "total": 638335
+  },
+  "tests": {
+    "1M_pop": "13,489,025",
+    "total": 4475297128
+  },
+  "day": "2022-03-22",
+  "time": "2022-03-22T09:00:02+00:00"
+}
+```
+
+#### Negative Example (Invalid Request)
+
+**Request:**
+
+```json
+{
+  "country": "NonexistentCountry"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "No statistics found for the given country"
+}
+```
 
 ### Authors
 
