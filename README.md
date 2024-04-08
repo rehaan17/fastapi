@@ -55,13 +55,15 @@ Comprehensive documentation for each endpoint is available within the codebase. 
 
 The Password Generator API can be easily tested using Swagger UI, a user-friendly interface for exploring and testing API endpoints. To access Swagger UI, navigate to `http://localhost:8000/docs` in your web browser after starting the FastAPI server.
 
-### Example
+### Examples
+
+#### Positive Example (Valid Request)
 
 **Request:**
 
 ```json
 {
-  "length": 12,
+  "length": 16,
   "uppercase": true,
   "lowercase": true,
   "numbers": true,
@@ -69,10 +71,36 @@ The Password Generator API can be easily tested using Swagger UI, a user-friendl
 }
 ```
 
-**Responses:**
+**Response:**
 
-1. Password: `Ex@mpleP@ssw0rd123`
-2. Password: `S3cureP@ssword!`
+```json
+{
+  "password": "R3&x@2sL9qI#8gF1",
+  "length": 16
+}
+```
+
+#### Negative Example (Invalid Request)
+
+**Request:**
+
+```json
+{
+  "length": 14,
+  "uppercase": false,
+  "lowercase": false,
+  "numbers": false,
+  "special_characters": false
+}
+```
+
+**Response:**
+
+```json
+{
+  "detail": "At least one character type should be included"
+}
+```
 
 ## COVID-19 Statistics API
 
@@ -88,6 +116,15 @@ Stay informed about the latest COVID-19 statistics with the COVID-19 Statistics 
 - **Customizable Queries**: Retrieve data for specific countries or regions by specifying query parameters.
 - **Easy Integration**: Intuitive API endpoints make it simple to integrate COVID-19 statistics functionality into your applications or dashboards.
 
+### Getting Started with COVID-19 Statistics API
+
+To start using the COVID-19 Statistics API, you need to obtain a RapidAPI key. RapidAPI provides access to various APIs, including the COVID-19 Statistics API. Follow the steps below to obtain your RapidAPI key:
+
+1. Sign up on [RapidAPI](https://rapidapi.com/).
+2. Once logged in, navigate to the COVID-19 Statistics API page.
+3. Subscribe to the API to obtain your RapidAPI key.
+4. Use the provided key (`RAPIDAPI_KEY`) in your requests to access COVID-19 statistics data.
+
 ### Usage
 
 #### Get Countries Affected by COVID-19
@@ -97,27 +134,6 @@ Use the `/countries` endpoint to retrieve a list of countries affected by COVID-
 #### Get COVID-19 Statistics
 
 Use the `/statistics` endpoint to retrieve current statistics of COVID-19 spread in a specific country. You can specify the country name as a query parameter to retrieve country-specific data.
-
-### Example
-
-**Request:**
-
-```json
-{
-  "country": "USA"
-}
-```
-
-**Response:**
-
-```json
-{
-  "country": "USA",
-  "cases": 4000000,
-  "deaths": 200000,
-  "recovered": 3000000
-}
-```
 
 ### Authors
 
